@@ -1,0 +1,35 @@
+import random
+import re
+
+def chatbot_response(input_text):
+    # Convert input to lowercase for case insensitivity
+    input_text = input_text.lower()
+
+    # Define patterns and responses
+    patterns = {
+        r'.*\b(hi|hello|hey)\b.*': ["Hello!", "Hi there!", "Hey!"],
+        r'.*\b(how are you|how are you doing)\b.*': ["I'm just a chatbot, but thanks for asking!", "I'm good, thanks for asking!"],
+        r'.*\b(what is your name|who are you)\b.*': ["I'm a chatbot created by OpenAI.", "You can call me ChatGPT!"],
+        r'.*\b(weather)\b.*': ["I'm sorry, I don't have weather information.", "You might want to check a weather app for that!"],
+        r'.*\b(thank you|thanks)\b.*': ["You're welcome!", "No problem!"],
+        r'.*\b(goodbye|bye)\b.*': ["Goodbye!", "See you later!"],
+    }
+
+    # Iterate through patterns and find a match
+    for pattern, responses in patterns.items():
+        if re.match(pattern, input_text):
+            return random.choice(responses)
+
+    # Default response for unrecognized inputs
+    return "I'm sorry, I don't understand that."
+
+# Example usage: Chat with the chatbot
+print("Chatbot: Hello! How can I help you today?")
+while True:
+    user_input = input("You: ")
+    if user_input.lower() == 'exit':
+        print("Chatbot: Goodbye!")
+        break
+    else:
+        response = chatbot_response(user_input)
+        print("Chatbot:", response)
